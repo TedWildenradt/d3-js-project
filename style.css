@@ -1,0 +1,32 @@
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+#chart {
+  padding-left: 20%;
+  margin: auto; 
+}
+#chart2 {
+  padding-top: 20px;
+}
+
+.bar {
+  /* fill: blue; */
+  opacity: .5;
+}
+
+.bar:hover {
+  /* fill: red; */
+  opacity: 1;
+}
+
+text {
+  visibility: hidden;
+}
+
+text:hover {
+  visibility: visible;
+}
+
+
