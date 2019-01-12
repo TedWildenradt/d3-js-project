@@ -21,12 +21,5 @@ html, body {
   opacity: 1;
 }
 
-text {
-  visibility: hidden;
-}
-
-text:hover {
-  visibility: visible;
-}
 
 

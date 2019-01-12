@@ -28,9 +28,9 @@ d3.csv("City_MedianRentalPrice_2Bedroom.csv", function(data) {
               .domain([new Date(2010, 0, 1), new Date(2019, 0, 1)])
               .range([0, width1])
       
-      let x2 = d3.scaleBand()
-              .domain(rentalTimes)
-              .range([0, width1])
+      // let x2 = d3.scaleBand()
+      //         .domain(rentalTimes)
+      //         .range([0, width1])
 
       let svg1 = d3.select("#chart2").append('svg')
                 .attr("width", width1 + margin.left + margin.right)
