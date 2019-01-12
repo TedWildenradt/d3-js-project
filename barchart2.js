@@ -20,7 +20,7 @@ d3.csv("City_MedianRentalPrice_2Bedroom.csv", function(data) {
       let barPadding = 1
 
       let y = d3.scaleLinear()
-              .domain([d3.min(rental2) - 200, d3.max(rental2)])
+              .domain([d3.max(rental2), d3.min(rental2) - 200])
               .range([0, height1])
               
 
@@ -57,11 +57,11 @@ d3.csv("City_MedianRentalPrice_2Bedroom.csv", function(data) {
       rects.enter()
             .append('rect')
             .attr('class','bar')
-            .attr('height', function(d, i) { return y(d)})
+            .attr('height', function(d, i) { return height1 - y(d)})
             .attr('width','5')
             .attr('fill', function(d) {return "rgb(0, 0, " + (d / 20) + ")"})
             .attr('x', function(d, i) {return ((width1 / rental2.length - barPadding) * i) + 50})
-            .attr('y', function(d, i) {return height1 - y(d)})
+            .attr('y', function(d, i) {return y(d)})
     }
   })
 
