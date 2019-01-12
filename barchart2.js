@@ -29,14 +29,24 @@ let x = d3.scaleTime()
 d3.csv("data/City_MedianRentalPrice_2Bedroom.csv", function(data) {
   let sfData = data.filter( x => x.RegionName === 'San Francisco')[0]
       
-  let rental2 = Object.values(sfData).slice(12)
-  console.log(rental2)
+  let prices = Object.values(sfData).slice(12)
+  console.log(prices)
   
-  let rentalTimes = Object.keys(sfData).slice(12);
-  console.log(rentalTimes)
+  let months = Object.keys(sfData).slice(12);
+  console.log(months)
   
-  y.domain([d3.max(rental2), d3.min(rental2) - 200])
+  // y.domain([d3.max(prices), d3.min(prices) - 200])
   x.domain([new Date(2010, 1, 1), new Date(2019, 2, 1)])
+
+  update(prices)
+
+})
+
+
+function update(prices) {
+
+  y.domain([d3.max(prices), d3.min(prices) - 200])
+  // x.domain([new Date(2010, 1, 1), new Date(2019, 2, 1)])
 
   let xAxisCall = d3.axisBottom(x);
   xAxisGroup.call(xAxisCall);;
@@ -45,25 +55,14 @@ d3.csv("data/City_MedianRentalPrice_2Bedroom.csv", function(data) {
   yAxisGroup.call(yAxisCall);
 
   let rects = g.selectAll('rect')
-                .data(rental2)
+  .data(prices)
 
   rects.enter()
-        .append('rect')
-        .attr('class','bar')
-        .attr('height', function(d, i) { return height1 - y(d)})
-        .attr('width','5')
-        .attr('fill', function(d) {return "rgb(0, 0, " + (d / 20) + ")"})
-        .attr('x', function(d, i) {return ((width1 / rental2.length - barPadding) * i) + 50})
-        .attr('y', function(d, i) {return y(d)})
-
-})
-
-
-// function update(data) {
-
-//   let xAxisCall = d3.axisBottom(x);
-//   xAxisGroup.call(xAxisCall);;
-
-//   let yAxisCall = d3.axisLeft(y)
-//   yAxisGroup.call(yAxisCall);
-// }
+       .append('rect')
+       .attr('class','bar')
+       .attr('height', function(d, i) { return height1 - y(d)})
+       .attr('width','5')
+       .attr('fill', function(d) {return "rgb(0, 0, " + (d / 20) + ")"})
+       .attr('x', function(d, i) {return ((width1 / prices.length - barPadding) * i) + 50})
+       .attr('y', function(d, i) {return y(d)})
+}
