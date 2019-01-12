@@ -55,4 +55,4 @@
          * Testing
          * Deploy
 ### Wireframe
-   * [wireframe](https://raw.githubusercontent.com/TedWildenradt/javascript-project/master/WireFrame.png)
+   * [wireframe](https://raw.githubusercontent.com/TedWildenradt/d3-js-project/master/WireFrame.png)
