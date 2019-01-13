@@ -36,24 +36,21 @@ const addToDataHash = function(price, month, name) {
   dataHash[name] = tempHash;
 }
 
+d3.csv("data/City_MedianRentalPrice_1Bedroom.csv", function(data) {
+  let sfData1 = data.filter( x => x.RegionName === 'San Francisco')[0]
+  let prices1 = Object.values(sfData1).slice(17)
+  let months1 = Object.keys(sfData1).slice(17)
+
+  addToDataHash(prices1, months1, 'oneBed')
+})
+
 
 d3.csv("data/City_MedianRentalPrice_2Bedroom.csv", function(data) {
   let sfData = data.filter( x => x.RegionName === 'San Francisco')[0]
-  // console.log(sfData)
-
   let prices = Object.values(sfData).slice(12)
-  // console.log(prices)
-  
   let months = Object.keys(sfData).slice(12);
-  // console.log(months)
-  
-  let rental2Bed = {}
-  for(let i=0; i < prices.length; i++){
-    rental2Bed[months[i]] = prices[i]
-  }
 
-  dataHash['twoBed'] = rental2Bed;
-
+  addToDataHash(prices, months, 'twoBed')
 
   // y.domain([d3.max(prices), d3.min(prices) - 200])
   x.domain([new Date(2010, 1, 1), new Date(2019, 2, 1)])
@@ -62,16 +59,28 @@ d3.csv("data/City_MedianRentalPrice_2Bedroom.csv", function(data) {
 
 })
 
-d3.csv("data/City_MedianRentalPrice_1Bedroom.csv", function(data) {
-  let sfData1 = data.filter( x => x.RegionName === 'San Francisco')[0]
-  // console.log(sfData1)
+d3.csv("data/City_MedianRentalPrice_3Bedroom.csv", function(data) {
+  let sfData3 = data.filter( x => x.RegionName === 'San Francisco')[0]
+  let prices3 = Object.values(sfData3).slice(60)
+  let months3 = Object.keys(sfData3).slice(60)
 
-  let prices1 = Object.values(sfData1).slice(17)
-  // console.log(prices1)
+  addToDataHash(prices3, months3, 'threeBed')
+})
 
-  let months1 = Object.keys(sfData1).slice(17)
+d3.csv("data/City_MedianRentalPrice_4Bedroom.csv", function(data) {
+  let sfData4 = data.filter( x => x.RegionName === 'San Francisco')[0]
+  let prices4 = Object.values(sfData4).slice(86)
+  let months4 = Object.keys(sfData4).slice(86)
 
-  addToDataHash(prices1, months1, 'oneBed')
+  addToDataHash(prices4, months4, 'fourBed')
+})
+
+d3.csv("data/City_MedianRentalPrice_5BedroomOrMore.csv", function(data) {
+  let sfData5 = data.filter( x => x.RegionName === 'San Francisco')[0]
+  let prices5 = Object.values(sfData5).slice(85)
+  let months5 = Object.keys(sfData5).slice(85)
+
+  addToDataHash(prices5, months5, 'fiveBed')
 })
 
 console.log(dataHash);
