@@ -1,5 +1,7 @@
 let dataHash = {};
 let domainHash = {}
+let count = 0;
+
 
 let margin = {left: 100, right: 10, top: 10, bottom: 100}
 let height1 = 600 - margin.top - margin.bottom
@@ -41,7 +43,7 @@ d3.csv("data/City_MedianRentalPrice_1Bedroom.csv", function(data) {
   let prices1 = Object.values(sfData1).slice(17)
   let months1 = Object.keys(sfData1).slice(17)
   
-  domainHash['oneBed'] = [new Date(2010, 8, 1), new Date(2018, 11, 1)]
+  domainHash['oneBed'] = [new Date(2011, 1, 1), new Date(2018, 11, 1)]
   
   addToDataHash(prices1, months1, 'oneBed')
 
@@ -54,11 +56,11 @@ d3.csv("data/City_MedianRentalPrice_2Bedroom.csv", function(data) {
   let prices = Object.values(sfData).slice(12)
   let months = Object.keys(sfData).slice(12);
   
-  domainHash['twoBed'] = [new Date(2010, 1, 1), new Date(2019, 2, 1)]
+  domainHash['twoBed'] = [new Date(2010, 8, 1), new Date(2018, 11, 1)]
   
   addToDataHash(prices, months, 'twoBed')
 
-  // update('twoBed')
+  update('twoBed')
 
 })
 
@@ -67,7 +69,7 @@ d3.csv("data/City_MedianRentalPrice_3Bedroom.csv", function(data) {
   let prices3 = Object.values(sfData3).slice(60)
   let months3 = Object.keys(sfData3).slice(60)
 
-  domainHash['threeBed'] = [new Date(2014, 2, 1), new Date(2019, 2, 1)]
+  domainHash['threeBed'] = [new Date(2014, 8, 1), new Date(2018, 11, 1)]
 
   addToDataHash(prices3, months3, 'threeBed')
 
@@ -79,11 +81,11 @@ d3.csv("data/City_MedianRentalPrice_4Bedroom.csv", function(data) {
   let prices4 = Object.values(sfData4).slice(86)
   let months4 = Object.keys(sfData4).slice(86)
 
-  domainHash['fourBed'] = [new Date(2016,11, 1), new Date(2018, 11, 1)]
+  domainHash['fourBed'] = [new Date(2016,10, 1), new Date(2018, 11, 1)]
 
   addToDataHash(prices4, months4, 'fourBed')
 
-  update('fourBed')
+  // update('fourBed')
 })
 
 d3.csv("data/City_MedianRentalPrice_5BedroomOrMore.csv", function(data) {
@@ -91,11 +93,17 @@ d3.csv("data/City_MedianRentalPrice_5BedroomOrMore.csv", function(data) {
   let prices5 = Object.values(sfData5).slice(85)
   let months5 = Object.keys(sfData5).slice(85)
 
+  domainHash['fiveBed'] = [new Date(2017,8, 1), new Date(2018, 11, 1)]
+
   addToDataHash(prices5, months5, 'fiveBed')
+
+  // update('fiveBed')
 })
 
 console.log(dataHash);
 console.log(domainHash);
+
+let t = d3.transition().duration(1500)
 
 function update(category) {
 
@@ -106,32 +114,39 @@ function update(category) {
   x.domain(domainHash[category])
 
   let xAxisCall = d3.axisBottom(x);
-  xAxisGroup.call(xAxisCall);;
+  xAxisGroup.transition(t).call(xAxisCall);;
 
   let yAxisCall = d3.axisLeft(y)
-  yAxisGroup.call(yAxisCall);
+  yAxisGroup.transition(t).call(yAxisCall);
 
   let rects = g.selectAll('rect')
-  .data(prices)
+        .data(prices, function(d) {
+          return Object.keys(dataHash[category])
+        })
 
-  rects.exit().remove()
+  rects.exit()
+      .attr('fill', 'red')
+    .transition(t)
+      .attr('y', y(0))
+      .attr('height', 0)
+      .remove()
 
-  rects 
+  rects.transition(t) 
       .attr('height', function(d, i) { return height1 - y(d)})
       .attr('width','5')
-      .attr('x', function(d, i) {return ((width1 / prices.length - barPadding) * i) + 50})
+      .attr('x', function(d, i) {return ((width1 / prices.length) * i)})
       .attr('y', function(d, i) {return y(d)})
 
   rects.enter()
        .append('rect')
        .attr('class','bar')
-       .attr('height', y(0))
-       .attr('width','5')
+       .attr('height', 0)
+       .attr('width',(width1 / prices.length - barPadding))
        .attr('fill', 'steelblue')
-       .attr('x', function(d, i) {return ((width1 / prices.length - barPadding) * i) + 50})
+       .attr('x', function(d, i) {return ((width1 / prices.length) * i)})
        .attr('fill-opacity', 0)
        .attr('y', y(0))
-       .transition(d3.transition().duration(1000))
+       .transition(t)
           .attr('y', function(d, i) {return y(d)})
           .attr('height', function(d, i) { return height1 - y(d)})
           .attr('fill-opacity', 1)
@@ -144,3 +159,9 @@ function update(category) {
   //      .attr("class", "line")
   //      .attr("d", valueline(prices));
 }
+
+// setInterval(function(){
+//   choices = Object.keys(domainHash);
+//   update( choices[count % 5])
+//   count++
+// }, 2000)
