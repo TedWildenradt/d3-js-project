@@ -1,3 +1,4 @@
+let dataHash = {};
 
 let margin = {left: 100, right: 10, top: 10, bottom: 100}
 let height1 = 600 - margin.top - margin.bottom
@@ -27,17 +28,33 @@ let y = d3.scaleLinear()
 let x = d3.scaleTime()
     .range([0, width1])
 
+const addToDataHash = function(price, month, name) {
+  let tempHash = {}
+  for (let i = 0; i < price.length; i++){
+    tempHash[month[i]] = price[i]
+  }
+  dataHash[name] = tempHash;
+}
+
 
 d3.csv("data/City_MedianRentalPrice_2Bedroom.csv", function(data) {
   let sfData = data.filter( x => x.RegionName === 'San Francisco')[0]
-  console.log(sfData)
+  // console.log(sfData)
 
   let prices = Object.values(sfData).slice(12)
-  console.log(prices)
+  // console.log(prices)
   
   let months = Object.keys(sfData).slice(12);
-  console.log(months)
+  // console.log(months)
   
+  let rental2Bed = {}
+  for(let i=0; i < prices.length; i++){
+    rental2Bed[months[i]] = prices[i]
+  }
+
+  dataHash['twoBed'] = rental2Bed;
+
+
   // y.domain([d3.max(prices), d3.min(prices) - 200])
   x.domain([new Date(2010, 1, 1), new Date(2019, 2, 1)])
 
@@ -45,7 +62,19 @@ d3.csv("data/City_MedianRentalPrice_2Bedroom.csv", function(data) {
 
 })
 
+d3.csv("data/City_MedianRentalPrice_1Bedroom.csv", function(data) {
+  let sfData1 = data.filter( x => x.RegionName === 'San Francisco')[0]
+  // console.log(sfData1)
 
+  let prices1 = Object.values(sfData1).slice(17)
+  // console.log(prices1)
+
+  let months1 = Object.keys(sfData1).slice(17)
+
+  addToDataHash(prices1, months1, 'oneBed')
+})
+
+console.log(dataHash);
 
 function update(prices) {
 
@@ -72,7 +101,7 @@ function update(prices) {
   rects.enter()
        .append('rect')
        .attr('class','bar')
-       .attr('height', function(d, i) { return height1 - y(d)})
+       .attr('height', y(0))
        .attr('width','5')
        .attr('fill', 'steelblue')
        .attr('x', function(d, i) {return ((width1 / prices.length - barPadding) * i) + 50})
@@ -80,6 +109,7 @@ function update(prices) {
        .attr('y', y(0))
        .transition(d3.transition().duration(1000))
           .attr('y', function(d, i) {return y(d)})
+          .attr('height', function(d, i) { return height1 - y(d)})
           .attr('fill-opacity', 1)
 
   // var valueline = d3.line()

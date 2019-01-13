@@ -11,4 +11,7 @@ html, body {
   padding-top: 20px;
 }
 
+.bar:hover{
+  fill: red;
+}
 
