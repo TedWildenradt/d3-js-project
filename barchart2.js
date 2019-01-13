@@ -25,7 +25,6 @@ let yAxisGroup = g.append("g")
 let y = d3.scaleLinear()
     .range([0, height1])
     
-
 let x = d3.scaleTime()
     .range([0, width1])
 
@@ -68,7 +67,11 @@ d3.csv("data/City_MedianRentalPrice_3Bedroom.csv", function(data) {
   let prices3 = Object.values(sfData3).slice(60)
   let months3 = Object.keys(sfData3).slice(60)
 
+  domainHash['threeBed'] = [new Date(2014, 2, 1), new Date(2019, 2, 1)]
+
   addToDataHash(prices3, months3, 'threeBed')
+
+  // update('threeBed');
 })
 
 d3.csv("data/City_MedianRentalPrice_4Bedroom.csv", function(data) {
@@ -76,7 +79,11 @@ d3.csv("data/City_MedianRentalPrice_4Bedroom.csv", function(data) {
   let prices4 = Object.values(sfData4).slice(86)
   let months4 = Object.keys(sfData4).slice(86)
 
+  domainHash['fourBed'] = [new Date(2016,11, 1), new Date(2018, 11, 1)]
+
   addToDataHash(prices4, months4, 'fourBed')
+
+  update('fourBed')
 })
 
 d3.csv("data/City_MedianRentalPrice_5BedroomOrMore.csv", function(data) {
