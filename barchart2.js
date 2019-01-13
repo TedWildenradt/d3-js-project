@@ -28,7 +28,8 @@ let x = d3.scaleTime()
 
 d3.csv("data/City_MedianRentalPrice_2Bedroom.csv", function(data) {
   let sfData = data.filter( x => x.RegionName === 'San Francisco')[0]
-      
+  console.log(sfData)
+
   let prices = Object.values(sfData).slice(12)
   console.log(prices)
   
@@ -41,6 +42,7 @@ d3.csv("data/City_MedianRentalPrice_2Bedroom.csv", function(data) {
   update(prices)
 
 })
+
 
 
 function update(prices) {
