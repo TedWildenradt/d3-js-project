@@ -30,6 +30,22 @@ let y = d3.scaleLinear()
 let x = d3.scaleTime()
     .range([0, width1])
 
+g.append("text")
+    .attr("y", height1 + 50)
+    .attr("x", width1 / 2)
+    .attr("font-size", "20px")
+    .attr("text-anchor", "middle")
+    .text("Year");
+
+// Y Label
+var yLabel = g.append("text")
+    .attr("y", -60)
+    .attr("x", -(height1 / 2))
+    .attr("font-size", "20px")
+    .attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .text("Rent per Month");
+
 const addToDataHash = function(price, month, name) {
   let tempHash = {}
   for (let i = 0; i < price.length; i++){
