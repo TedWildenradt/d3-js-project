@@ -4,6 +4,8 @@ let height1 = 600 - margin.top - margin.bottom
 let width1 = 900 - margin.left - margin.right
 let barPadding = 1
 
+let flag = true;
+
 let svg1 = d3.select("#chart2").append('svg')
 .attr("width", width1 + margin.left + margin.right)
 .attr('height', height1 + margin.top + margin.bottom)
@@ -59,12 +61,32 @@ function update(prices) {
   let rects = g.selectAll('rect')
   .data(prices)
 
+  rects.exit().remove()
+
+  rects 
+      .attr('height', function(d, i) { return height1 - y(d)})
+      .attr('width','5')
+      .attr('x', function(d, i) {return ((width1 / prices.length - barPadding) * i) + 50})
+      .attr('y', function(d, i) {return y(d)})
+
   rects.enter()
        .append('rect')
        .attr('class','bar')
        .attr('height', function(d, i) { return height1 - y(d)})
        .attr('width','5')
-       .attr('fill', function(d) {return "rgb(0, 0, " + (d / 20) + ")"})
+       .attr('fill', 'steelblue')
        .attr('x', function(d, i) {return ((width1 / prices.length - barPadding) * i) + 50})
-       .attr('y', function(d, i) {return y(d)})
+       .attr('fill-opacity', 0)
+       .attr('y', y(0))
+       .transition(d3.transition().duration(1000))
+          .attr('y', function(d, i) {return y(d)})
+          .attr('fill-opacity', 1)
+
+  // var valueline = d3.line()
+  //      .x(function(d, i) {return ((width1 / prices.length - barPadding) * i) + 50})
+  //      .y(function(d) { return y(d); });
+
+  // g.append("path")
+  //      .attr("class", "line")
+  //      .attr("d", valueline(prices));
 }

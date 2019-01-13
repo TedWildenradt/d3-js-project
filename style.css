@@ -11,15 +11,4 @@ html, body {
   padding-top: 20px;
 }
 
-.bar {
-  /* fill: blue; */
-  opacity: .5;
-}
-
-.bar:hover {
-  /* fill: red; */
-  opacity: 1;
-}
-
-
 
