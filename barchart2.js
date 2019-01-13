@@ -1,11 +1,12 @@
 let dataHash = {};
+let domainHash = {}
 
 let margin = {left: 100, right: 10, top: 10, bottom: 100}
 let height1 = 600 - margin.top - margin.bottom
 let width1 = 900 - margin.left - margin.right
 let barPadding = 1
 
-let flag = true;
+// let flag = true;
 
 let svg1 = d3.select("#chart2").append('svg')
 .attr("width", width1 + margin.left + margin.right)
@@ -40,8 +41,12 @@ d3.csv("data/City_MedianRentalPrice_1Bedroom.csv", function(data) {
   let sfData1 = data.filter( x => x.RegionName === 'San Francisco')[0]
   let prices1 = Object.values(sfData1).slice(17)
   let months1 = Object.keys(sfData1).slice(17)
-
+  
+  domainHash['oneBed'] = [new Date(2010, 8, 1), new Date(2018, 11, 1)]
+  
   addToDataHash(prices1, months1, 'oneBed')
+
+  // update('oneBed')
 })
 
 
@@ -49,13 +54,12 @@ d3.csv("data/City_MedianRentalPrice_2Bedroom.csv", function(data) {
   let sfData = data.filter( x => x.RegionName === 'San Francisco')[0]
   let prices = Object.values(sfData).slice(12)
   let months = Object.keys(sfData).slice(12);
-
+  
+  domainHash['twoBed'] = [new Date(2010, 1, 1), new Date(2019, 2, 1)]
+  
   addToDataHash(prices, months, 'twoBed')
 
-  // y.domain([d3.max(prices), d3.min(prices) - 200])
-  x.domain([new Date(2010, 1, 1), new Date(2019, 2, 1)])
-
-  update(prices)
+  // update('twoBed')
 
 })
 
@@ -84,11 +88,15 @@ d3.csv("data/City_MedianRentalPrice_5BedroomOrMore.csv", function(data) {
 })
 
 console.log(dataHash);
+console.log(domainHash);
 
-function update(prices) {
+function update(category) {
+
+  let prices = Object.values(dataHash[category])
 
   y.domain([d3.max(prices), d3.min(prices) - 200])
   // x.domain([new Date(2010, 1, 1), new Date(2019, 2, 1)])
+  x.domain(domainHash[category])
 
   let xAxisCall = d3.axisBottom(x);
   xAxisGroup.call(xAxisCall);;
