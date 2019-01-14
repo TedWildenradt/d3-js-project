@@ -18,8 +18,6 @@ let g = svg1.append('g')
 .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
 
 let tip = d3.tip().attr('class','d3-tip').html(function(d, i) {
-  console.log(d);
-  console.log(i);
   return d3.format("$,.0f")(d)
 })
 g.call(tip);
@@ -130,6 +128,10 @@ let t = d3.transition().duration(1500)
 
 function update(category) {
 
+  // let selection = document.getElementById('dropdown-selector');
+  // let newSelection = selection.options[selection.selectedIndex].value;
+  // category = newSelection;
+
   let prices = Object.values(dataHash[category])
 
   y.domain([d3.max(prices), d3.min(prices) - 200])
@@ -203,4 +205,10 @@ const timeFormatter = function(time) {
   const parseTime = d3.timeParse("%Y-%m")
   let formatTime = d3.timeFormat("%Y %B")
   return formatTime(parseTime(time));
+}
+
+const changeSelection = document.getElementById('dropdown-selector').onchange = function(){
+  let selection = document.getElementById('dropdown-selector');
+  let newSelection = selection.options[selection.selectedIndex].value;
+  update(newSelection)
 }
