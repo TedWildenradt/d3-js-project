@@ -8,7 +8,9 @@ let height1 = 600 - margin.top - margin.bottom
 let width1 = 900 - margin.left - margin.right
 let barPadding = 1
 
-// let flag = true;
+let tip = d3.tip().attr('class','d3-tip').html(function(d) {return d})
+
+// vis.call(tip);
 
 let svg1 = d3.select("#chart2").append('svg')
 .attr("width", width1 + margin.left + margin.right)
