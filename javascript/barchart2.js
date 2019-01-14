@@ -124,7 +124,7 @@ d3.csv("data/City_MedianRentalPrice_5BedroomOrMore.csv", function(data) {
 console.log(dataHash);
 console.log(domainHash);
 
-let t = d3.transition().duration(1500)
+let t = d3.transition().duration(3000)
 
 function update(category) {
 
@@ -152,7 +152,7 @@ function update(category) {
         })
 
   rects.exit()
-      .attr('fill', 'red')
+      .attr('fill', 'lightblue')
     .transition(t)
       .attr('y', y(0))
       .attr('height', 0)
@@ -160,7 +160,7 @@ function update(category) {
 
   rects.transition(t) 
       .attr('height', function(d, i) { return height1 - y(d)})
-      .attr('width','5')
+      .attr('width',(width1 / prices.length - barPadding))
       .attr('x', function(d, i) {return ((width1 / prices.length) * i)})
       .attr('y', function(d, i) {return y(d)})
 
@@ -180,13 +180,16 @@ function update(category) {
           .attr('height', function(d, i) { return height1 - y(d)})
           .attr('fill-opacity', 1)
 
-  // var valueline = d3.line()
-  //      .x(function(d, i) {return ((width1 / prices.length - barPadding) * i) + 50})
-  //      .y(function(d) { return y(d); });
+  const linePath = d3.line()
+        .x(function(d, i) {return ((width1 / prices.length) * i)})
+        .y(function(d) {return y(d) })
 
-  // g.append("path")
-  //      .attr("class", "line")
-  //      .attr("d", valueline(prices));
+  g.append('path')
+        .attr('class','line')
+        .attr('fill', 'none')
+        .attr('stroke','grey')
+        .attr('stroke-width', '5px')
+        .attr('d', linePath(prices))
 }
 
 // setInterval(function(){
