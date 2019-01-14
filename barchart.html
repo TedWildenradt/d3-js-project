@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/d3_tip.css">
 
     <!-- Alternatively use d3.js here -->
-    <script type="text/javascript" src="d3.min.js"></script>
+    <script type="text/javascript" src="javascript/d3.min.js"></script>
     <script>
       // d3.json("median_1_bedroom.json", function(data) {
       //   data.forEach(function(d){
@@ -21,10 +21,22 @@
   </head>
 
   <body>
+
+    <div id="dropdown-selector">
+      <select name="" id="">
+        <option value="All">All</option>
+        <option value="1 Bedroom">1 Bedroom Rentals</option>
+        <option selected value="2 Bedroom">2 Bedroom Rentals</option>
+        <option value="3 Bedroom">3 Bedroom Rentals</option>
+        <option value="4 Bedroom">4 Bedroom Rentals</option>
+        <option value="5 Bedroom">5 Bedroom Rentals</option>
+      </select>
+    </div>
+
     <div id="chart"></div>
     <div id="chart2"></div>
-    <!-- <script type="text/javascript" src="barchart.js"></script> -->
-    <script src="d3-tip.js"></script>
-    <script type="text/javascript" src="barchart2.js"></script>
+    <!-- <script type="text/javascript" src="javascrpt/barchart.js"></script> -->
+    <script src="javascript/d3-tip.js"></script>
+    <script type="text/javascript" src="javascript/barchart2.js"></script>
   </body>
 </html>

@@ -8,9 +8,7 @@ let height1 = 600 - margin.top - margin.bottom
 let width1 = 900 - margin.left - margin.right
 let barPadding = 1
 
-let tip = d3.tip().attr('class','d3-tip').html(function(d) {return d})
 
-// vis.call(tip);
 
 let svg1 = d3.select("#chart2").append('svg')
 .attr("width", width1 + margin.left + margin.right)
@@ -18,6 +16,13 @@ let svg1 = d3.select("#chart2").append('svg')
 
 let g = svg1.append('g')
 .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+
+let tip = d3.tip().attr('class','d3-tip').html(function(d, i) {
+  console.log(d);
+  console.log(i);
+  return d3.format("$,.0f")(d)
+})
+g.call(tip);
 
 let xAxisGroup = g.append("g")
     .attr("class", "x axis")
@@ -78,7 +83,7 @@ d3.csv("data/City_MedianRentalPrice_2Bedroom.csv", function(data) {
   
   addToDataHash(prices, months, '2 Bedroom')
 
-  // update('2 Bedroom')
+  update('2 Bedroom')
 
 })
 
@@ -91,7 +96,7 @@ d3.csv("data/City_MedianRentalPrice_3Bedroom.csv", function(data) {
 
   addToDataHash(prices3, months3, '3 Bedroom')
 
-  update('3 Bedroom');
+  // update('3 Bedroom');
 })
 
 d3.csv("data/City_MedianRentalPrice_4Bedroom.csv", function(data) {
@@ -160,6 +165,8 @@ function update(category) {
   rects.enter()
        .append('rect')
        .attr('class','bar')
+       .on('mouseover', tip.show)
+       .on('mouseout', tip.hide)
        .attr('height', 0)
        .attr('width',(width1 / prices.length - barPadding))
        .attr('fill', 'steelblue')
