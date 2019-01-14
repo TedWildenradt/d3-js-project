@@ -1,6 +1,6 @@
 let dataHash = {};
 let domainHash = {}
-let count = 0;
+let count = 1;
 
 
 let margin = {left: 100, right: 10, top: 10, bottom: 100}
@@ -59,11 +59,11 @@ d3.csv("data/City_MedianRentalPrice_1Bedroom.csv", function(data) {
   let prices1 = Object.values(sfData1).slice(17)
   let months1 = Object.keys(sfData1).slice(17)
   
-  domainHash['oneBed'] = [new Date(2011, 1, 1), new Date(2018, 11, 1)]
+  domainHash['1 Bedroom'] = [new Date(2011, 1, 1), new Date(2018, 11, 1)]
   
-  addToDataHash(prices1, months1, 'oneBed')
+  addToDataHash(prices1, months1, '1 Bedroom')
 
-  // update('oneBed')
+  // update('1 Bedroom')
 })
 
 
@@ -72,11 +72,11 @@ d3.csv("data/City_MedianRentalPrice_2Bedroom.csv", function(data) {
   let prices = Object.values(sfData).slice(12)
   let months = Object.keys(sfData).slice(12);
   
-  domainHash['twoBed'] = [new Date(2010, 8, 1), new Date(2018, 11, 1)]
+  domainHash['2 Bedroom'] = [new Date(2010, 8, 1), new Date(2018, 11, 1)]
   
-  addToDataHash(prices, months, 'twoBed')
+  addToDataHash(prices, months, '2 Bedroom')
 
-  update('twoBed')
+  // update('2 Bedroom')
 
 })
 
@@ -85,11 +85,11 @@ d3.csv("data/City_MedianRentalPrice_3Bedroom.csv", function(data) {
   let prices3 = Object.values(sfData3).slice(60)
   let months3 = Object.keys(sfData3).slice(60)
 
-  domainHash['threeBed'] = [new Date(2014, 8, 1), new Date(2018, 11, 1)]
+  domainHash['3 Bedroom'] = [new Date(2014, 8, 1), new Date(2018, 11, 1)]
 
-  addToDataHash(prices3, months3, 'threeBed')
+  addToDataHash(prices3, months3, '3 Bedroom')
 
-  // update('threeBed');
+  update('3 Bedroom');
 })
 
 d3.csv("data/City_MedianRentalPrice_4Bedroom.csv", function(data) {
@@ -97,11 +97,11 @@ d3.csv("data/City_MedianRentalPrice_4Bedroom.csv", function(data) {
   let prices4 = Object.values(sfData4).slice(86)
   let months4 = Object.keys(sfData4).slice(86)
 
-  domainHash['fourBed'] = [new Date(2016,10, 1), new Date(2018, 11, 1)]
+  domainHash['4 Bedroom'] = [new Date(2016,10, 1), new Date(2018, 11, 1)]
 
-  addToDataHash(prices4, months4, 'fourBed')
+  addToDataHash(prices4, months4, '4 Bedroom')
 
-  // update('fourBed')
+  // update('4 Bedroom')
 })
 
 d3.csv("data/City_MedianRentalPrice_5BedroomOrMore.csv", function(data) {
@@ -109,11 +109,11 @@ d3.csv("data/City_MedianRentalPrice_5BedroomOrMore.csv", function(data) {
   let prices5 = Object.values(sfData5).slice(85)
   let months5 = Object.keys(sfData5).slice(85)
 
-  domainHash['fiveBed'] = [new Date(2017,8, 1), new Date(2018, 11, 1)]
+  domainHash['5+ Bedroom'] = [new Date(2017,8, 1), new Date(2018, 11, 1)]
 
-  addToDataHash(prices5, months5, 'fiveBed')
+  addToDataHash(prices5, months5, '5+ Bedroom')
 
-  // update('fiveBed')
+  // update('5+ Bedroom')
 })
 
 console.log(dataHash);
@@ -134,6 +134,8 @@ function update(category) {
 
   let yAxisCall = d3.axisLeft(y)
   yAxisGroup.transition(t).call(yAxisCall);
+
+  yLabel.text(`${category} Rent per Month`)
 
   let rects = g.selectAll('rect')
         .data(prices, function(d) {
@@ -177,7 +179,19 @@ function update(category) {
 }
 
 // setInterval(function(){
-//   choices = Object.keys(domainHash);
+//   choices = Object.keys(domainHash).sort( (a,b) => parseInt(a[0]) - parseInt(b[0]))
 //   update( choices[count % 5])
 //   count++
 // }, 2000)
+
+// let parseTime = d3.timeParse("%Y-%m")
+// let example = parseTime('2010-02')
+// console.log(example)
+// let formatTime = d3.timeFormat("%Y %B")
+// console.log(formatTime(example));
+
+const timeFormatter = function(time) {
+  const parseTime = d3.timeParse("%Y-%m")
+  let formatTime = d3.timeFormat("%Y %B")
+  return formatTime(parseTime(time));
+}
