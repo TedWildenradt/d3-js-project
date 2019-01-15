@@ -1,5 +1,4 @@
 let dataHash = {};
-// let dataHash2 = {};
 let domainHash = {}
 let count = 1;
 let globalCategory = '2 Bedroom'
@@ -58,13 +57,11 @@ var yLabel = g.append("text")
 
 const addToDataHash = function(price, month, name) {
   let tempHash = {}
-  // let tempHash2 = {}
   for (let i = 0; i < price.length; i++){
     tempHash[month[i]] = price[i]
-    // tempHash2[price[i].toString()] = month[i]
   }
   dataHash[name] = tempHash;
-  // dataHash2[name] = tempHash2;
+
 }
 
 d3.csv("data/City_MedianRentalPrice_1Bedroom.csv", function(data) {
@@ -132,18 +129,15 @@ d3.csv("data/City_MedianRentalPrice_5BedroomOrMore.csv", function(data) {
 console.log(dataHash);
 console.log(domainHash);
 
-// let t = d3.transition().duration(3000)
+
 
 function update(category) {
   let t = d3.transition().duration(3000)
-  // console.log(dataHash)
-  // console.log(dataHash2)
   globalCategory = category
 
   let prices = Object.values(dataHash[category])
 
   y.domain([10000, 0])
-  // x.domain([new Date(2010, 1, 1), new Date(2019, 2, 1)])
   x.domain(domainHash[category])
 
   let xAxisCall = d3.axisBottom(x);
@@ -161,9 +155,7 @@ function update(category) {
   
 
   rects.exit()
-      // .attr('fill', 'white')
     .transition(d3.transition().duration(750))
-    //     .delay(750)
       .attr('y', y(0))
       .attr('height', 0)
       .remove()
@@ -174,22 +166,6 @@ function update(category) {
       .attr('width',(width1 / prices.length - barPadding))
       .attr('height', function(d, i) { return height1 - y(d)})
 
-  // rects.enter()
-  //      .append('rect')
-  //      .attr('class','bar')
-  //      .on('mouseover', tip.show)
-  //      .on('mouseout', tip.hide)
-  //      .attr('height', 0)
-  //      .attr('width',(width1 / prices.length - barPadding))
-  //      .attr('fill', '#0177b5')
-  //      .attr('x', function(d, i) {return ((width1 / prices.length) * i)})
-  //      .attr('fill-opacity', 0)
-  //      .attr('y', y(0))
-  //      .transition(t)
-  //         .attr('y', function(d, i) {return y(d)})
-  //         .attr('height', function(d, i) { return height1 - y(d)})
-  //         .attr('fill-opacity', 1)
-
   rects.enter()
        .append('rect')
        .attr('class','bar')
@@ -199,14 +175,13 @@ function update(category) {
        .attr('width',(width1 / prices.length - barPadding))
        .attr('fill', '#0177b5')
        .attr('x', function(d, i) {return ((width1 / prices.length) * i)})
-      //  .attr('fill-opacity', 0)
        .attr('y', y(0))
        .merge(rects)
        .transition(t)
           .delay(750)
           .attr('y', function(d, i) {return y(d)})
           .attr('height', function(d, i) { return height1 - y(d)})
-          // .attr('fill-opacity', 1)
+
 
   // const linePath = d3.line()
   //       .x(function(d, i) {return ((width1 / prices.length) * i)})
@@ -225,12 +200,6 @@ function update(category) {
 //   update( choices[count % 5])
 //   count++
 // }, 5000)
-
-// let parseTime = d3.timeParse("%Y-%m")
-// let example = parseTime('2010-02')
-// console.log(example)
-// let formatTime = d3.timeFormat("%Y %B")
-// console.log(formatTime(example));
 
 const timeFormatter = function(time) {
   const parseTime = d3.timeParse("%Y-%m")
