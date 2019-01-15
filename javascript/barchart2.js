@@ -232,11 +232,11 @@ function update(category) {
 // let formatTime = d3.timeFormat("%Y %B")
 // console.log(formatTime(example));
 
-const timeFormatter = function(time) {
-  const parseTime = d3.timeParse("%Y-%m")
-  let formatTime = d3.timeFormat("%Y %B")
-  return formatTime(parseTime(time));
-}
+// const timeFormatter = function(time) {
+//   const parseTime = d3.timeParse("%Y-%m")
+//   let formatTime = d3.timeFormat("%Y %B")
+//   return formatTime(parseTime(time));
+// }
 
 const changeSelection = document.getElementById('dropdown-selector').onchange = function(){
   let selection = document.getElementById('dropdown-selector');

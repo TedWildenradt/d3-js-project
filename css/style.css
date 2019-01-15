@@ -82,6 +82,7 @@ img {
   margin: auto;
   width: 300px;
   margin-top: 100px;
+  padding-left: 100px;
 }
 
 .logo img{
@@ -92,4 +93,8 @@ img {
 #linkedin-logo img{
   width: 75px;
   padding-left: 5px;
+}
+
+#dropdown-selector-container{
+  padding-left: 100px;
 }
