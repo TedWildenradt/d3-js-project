@@ -1,6 +1,8 @@
 let dataHash = {};
+// let dataHash2 = {};
 let domainHash = {}
 let count = 1;
+let globalCategory = '2 Bedroom'
 
 
 let margin = {left: 100, right: 10, top: 10, bottom: 100}
@@ -18,7 +20,10 @@ let g = svg1.append('g')
 .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
 
 let tip = d3.tip().attr('class','d3-tip').html(function(d, i) {
-  return d3.format("$,.0f")(d)
+
+  let monthYear = timeFormatter(Object.keys(dataHash[globalCategory])[i])
+
+  return `${monthYear}:  ` + d3.format("$,.0f")(d)
 })
 g.call(tip);
 
@@ -53,10 +58,13 @@ var yLabel = g.append("text")
 
 const addToDataHash = function(price, month, name) {
   let tempHash = {}
+  // let tempHash2 = {}
   for (let i = 0; i < price.length; i++){
     tempHash[month[i]] = price[i]
+    // tempHash2[price[i].toString()] = month[i]
   }
   dataHash[name] = tempHash;
+  // dataHash2[name] = tempHash2;
 }
 
 d3.csv("data/City_MedianRentalPrice_1Bedroom.csv", function(data) {
@@ -128,9 +136,9 @@ console.log(domainHash);
 
 function update(category) {
   let t = d3.transition().duration(3000)
-  // let selection = document.getElementById('dropdown-selector');
-  // let newSelection = selection.options[selection.selectedIndex].value;
-  // category = newSelection;
+  // console.log(dataHash)
+  // console.log(dataHash2)
+  globalCategory = category
 
   let prices = Object.values(dataHash[category])
 
