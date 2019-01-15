@@ -39,7 +39,7 @@ img {
 }
 
 #header {
-  background-color: steelblue;
+  background-color: #0177b5;
   height: 100px;
   display: flex;
   justify-content: center;
@@ -86,4 +86,9 @@ img {
 .logo img{
   height: 64px;
   width: 64px;
+}
+
+#linkedin-logo img{
+  width: 75px;
+  padding-left: 5px;
 }
