@@ -124,17 +124,17 @@ d3.csv("data/City_MedianRentalPrice_5BedroomOrMore.csv", function(data) {
 console.log(dataHash);
 console.log(domainHash);
 
-let t = d3.transition().duration(3000)
+// let t = d3.transition().duration(3000)
 
 function update(category) {
-
+  let t = d3.transition().duration(3000)
   // let selection = document.getElementById('dropdown-selector');
   // let newSelection = selection.options[selection.selectedIndex].value;
   // category = newSelection;
 
   let prices = Object.values(dataHash[category])
 
-  y.domain([d3.max(prices), 0])
+  y.domain([10000, 0])
   // x.domain([new Date(2010, 1, 1), new Date(2019, 2, 1)])
   x.domain(domainHash[category])
 
@@ -153,8 +153,8 @@ function update(category) {
 
   rects.exit()
       .attr('fill', 'lightblue')
-    .transition(t)
-      .attr('y', y(0))
+    // .transition(t)
+      // .attr('y', y(0))
       // .attr('height', 0)
       .remove()
 
