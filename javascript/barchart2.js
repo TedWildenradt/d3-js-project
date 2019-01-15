@@ -150,12 +150,14 @@ function update(category) {
         .data(prices, function(d) {
           return Object.keys(dataHash[category])
         })
+  
 
   rects.exit()
-      .attr('fill', 'lightblue')
-    // .transition(t)
-      // .attr('y', y(0))
-      // .attr('height', 0)
+      // .attr('fill', 'white')
+    .transition(d3.transition().duration(750))
+    //     .delay(750)
+      .attr('y', y(0))
+      .attr('height', 0)
       .remove()
 
   rects.transition(t) 
@@ -193,6 +195,7 @@ function update(category) {
        .attr('y', y(0))
        .merge(rects)
        .transition(t)
+          .delay(750)
           .attr('y', function(d, i) {return y(d)})
           .attr('height', function(d, i) { return height1 - y(d)})
           // .attr('fill-opacity', 1)
