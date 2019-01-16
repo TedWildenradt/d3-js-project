@@ -26,13 +26,13 @@
         let formatTime = d3.timeFormat("%Y %B")
         return formatTime(parseTime(time));
       }```
-   * D3 exit pattern
+   // D3 exit pattern
    ```  rects.exit()
     .transition(d3.transition().duration(750))
       .attr('y', y(0))
       .attr('height', 0)
       .remove()```
-   * D3 update pattern 
+   // D3 update pattern 
    ```  rects.transition(t) 
       .attr('x', function(d, i) {return ((width1 / prices.length) * i)})
       .attr('y', function(d, i) {return y(d)})
