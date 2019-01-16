@@ -126,11 +126,6 @@ d3.csv("data/City_MedianRentalPrice_5BedroomOrMore.csv", function(data) {
   // update('5+ Bedroom')
 })
 
-console.log(dataHash);
-console.log(domainHash);
-
-
-
 function update(category) {
   let t = d3.transition().duration(3000)
   globalCategory = category
@@ -152,8 +147,10 @@ function update(category) {
         .data(prices, function(d) {
           return Object.keys(dataHash[category])
         })
-  
 
+  // let rects = g.selectAll('rect')
+  //       .data(dataHash[category])
+  
   rects.exit()
     .transition(d3.transition().duration(750))
       .attr('y', y(0))
