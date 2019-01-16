@@ -18,4 +18,4 @@
    * Site is displayed as a single page application
    * Site visitor can select which data they would like to see and the data will change in a visually appealing way.
 
-![](./d2_1.gif)
+![](./d3_1.gif)
