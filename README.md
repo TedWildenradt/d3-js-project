@@ -16,6 +16,6 @@
    * Use accurate data from Zillow 
    * Parse the data from csv files
    * Site is displayed as a single page application
-    * ![](./d3_1.gif)
+     ![](./d3_1.gif)
    * Site visitor can select which data they would like to see and the data will change in a visually appealing way.
-    *![](./d3_2.gif)
+    ![](./d3_2.gif)
