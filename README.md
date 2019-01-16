@@ -2,13 +2,13 @@
 ## Real Estate SF
 * [Live Link](https://tedwildenradt.github.io/d3-js-project/)
 ### Background and Overview
-    * Data visualization showing rental trends in San Francisco over time
-    * Purpose: Use D3.js to make the data dynamic and visually appealing.
+   * Data visualization showing rental trends in San Francisco over time   
+   * Purpose: Use D3.js to make the data dynamic and visually appealing.
 ### Architecture and Technologies
-    * D3 - Data Driven Documents
-    * Vanilla Javascript
-    * HTML
-    * CSS animations
+   * D3 - Data Driven Documents
+   * Vanilla Javascript
+   * HTML
+   * CSS animations
 ### Data and APIs
    * Data was obtained from Zillow's historical real estate data
    * Data was parsed from csv files and made statically available on the website
