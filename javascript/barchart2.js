@@ -204,8 +204,8 @@ const timeFormatter = function(time) {
   return formatTime(parseTime(time));
 }
 
-const changeSelection = document.getElementById('dropdown-selector').onchange = function(){
-  let selection = document.getElementById('dropdown-selector');
+const changeSelection = document.getElementById('search_categories').onchange = function(){
+  let selection = document.getElementById('search_categories');
   let newSelection = selection.options[selection.selectedIndex].value;
   update(newSelection)
 }
